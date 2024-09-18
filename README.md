@@ -118,7 +118,7 @@ $ python3 -m venv myenv
 
 # 激活虛擬環境(可以測試看看能不能機活)
 $ source myenv/bin/activate
-![image](https://github.com/OliverTsai/memorandum/blob/main/img/5.png)
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/7.png)
 
 # 在對應的虛擬環境中安裝 Flask 等依賴
 $ pip install Flask
