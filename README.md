@@ -37,7 +37,8 @@ ISO image 填入剛剛下載的 Ubuntu iso path
 配置儲存空間容量，檔案存放的容量大小，像是。 Windows C槽或是D槽的 125GB 或是多少 GB ，這裡就是要設定可以存放的空間大小。
 ![image](https://github.com/OliverTsai/memorandum/blob/main/img/4.png)
 
-完成了
+
+完成圖如下
 ![image](https://github.com/OliverTsai/memorandum/blob/main/img/5.png)
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
