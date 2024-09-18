@@ -1,4 +1,3 @@
-# -
 一個完整的網站
 應該有以下幾種功能
 
@@ -59,46 +58,59 @@ sudo是Linux系統中一個非常強大且重要的指令，它允許授予特�
 
 ![image](https://github.com/OliverTsai/memorandum/blob/main/img/6.png)
 
-切換至root權限。
+# 切換至root權限。
+
 $ su
 
-查看當前權限級別
+# 查看當前權限級別
+
 $ whoami
 
-安裝或將sudo更新至最新版本
+# 安裝或將sudo更新至最新版本
+
 $ apt install sudo
 
-添加帳號至sudoers名單中
+# 添加帳號至sudoers名單中
+
 $usermod -aG sudo oliver
 
-離開root模式
+# 離開root模式
+
 $ exit
 
-重新啟動伺服器（Ubuntu）
+# 重新啟動伺服器（Ubuntu）
+
 $ reboot
 
 
 有權限後就能安裝必要的軟體
 
-以管理員身份更新你系統的軟體包列表
+# 以管理員身份更新你系統的軟體包列表
+
 $ sudo apt update
 
-安裝 Nginx
+# 安裝 Nginx
+
 $ sudo apt install nginx
 
-安裝完成後，可以使用以下命令啟動 Nginx
+# 安裝完成後，可以使用以下命令啟動 Nginx
+
 $ sudo systemctl start nginx
 
-並且設置 Nginx 開機自啟：
+# 並且設置 Nginx 開機自啟：
+
 $ sudo systemctl enable nginx
 
-檢查 Nginx 是否已成功啟動
+# 檢查 Nginx 是否已成功啟動
+
 $ sudo systemctl status nginx
 
-安裝Python
+# 安裝Python
+
 $ sudo apt install python3
 
-安裝 pip
+# 安裝 pip
+
 $ sudo apt install python3-pip
 
 
@@ -111,28 +123,63 @@ $ sudo apt install python3-pip
 
 
 # 安裝 venv（如果尚未安裝）
+
 $ sudo apt install python3-venv
 
 # 創建虛擬環境
+
 $ python3 -m venv myenv
 
 # 激活虛擬環境(可以測試看看能不能機活)
+
 $ source myenv/bin/activate
+
 ![image](https://github.com/OliverTsai/memorandum/blob/main/img/7.png)
 
 # 在對應的虛擬環境中安裝 Flask 等依賴
+
 $ pip install Flask
 
-創建腳本文件
+# 創建腳本文件
+
 $ nano start_script.sh
 
 編寫腳本內容
+
 #!/bin/bash
 source myenv/bin/activate  # 替換為你的虛擬環境路徑
 cd /path/to/your/project  # 替換為你的專案路徑
 python your_script.py  # 替換為要執行的 Python 檔案
 
-賦予執行權限（Linux）
+# 賦予執行權限（Linux）
+
 $ chmod +x ~/start_script.sh
 
+# 創建systemd服務文件
 
+在 /etc/systemd/system/ 目錄下創建一個新的服務文件，例如 my_service.service
+
+$ sudo nano /etc/systemd/system/my_service.service
+
+# 編寫服務配置
+
+[Unit]
+Description=My Startup Script
+
+[Service]
+ExecStart=/home/user/start_script.sh
+
+[Install]
+WantedBy=multi-user.target
+
+# 重新加載 systemd 配置
+
+$ sudo systemctl daemon-reload
+
+# 啟用服務
+
+使用以下命令使服務在啟動時自動運行
+
+$ sudo systemctl enable my_service.service
+
+重啟系統測試
