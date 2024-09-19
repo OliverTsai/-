@@ -145,7 +145,7 @@ $ nano start_script.sh
 
 # 編寫腳本內容
 -------------
-這邊有個要注意的地方，因為本篇是要透過systemd服務來執行啟動檔，所以要將PATH都打上絕對位置或設定一個工作目錄
+這邊有個要注意的地方，因為本篇是要透過systemd服務來執行sh啟動檔，所以要將PATH都打上絕對位置或設定一個工作目錄
 -------------
 
 #!/bin/bash
@@ -254,4 +254,72 @@ $ hostname -I
 
 # 設置資料庫
 
+# 首先搜尋mongoDB的官網下載
+
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/14.png)
+
+# 然後根據需求(此為Ubuntu22.04版本)下載
+
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/15.png)
+
+
+# 然後我是透過FileZilla上傳
+
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/16.png)
+
+
+# 輸入命令執行這個安裝檔案(此為mongodb-org-server_8.0.0_amd64.deb)
+
+$ sudo dpkg -i mongodb-org-server_8.0.0_amd64.deb
+
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/17.png)
+
+# 安裝完成後查看狀態
+
+$ sudo systemctl status mongod
+
+
+# 安裝正常後要啟動
+
+$ sudo systemctl start mongod
+
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/18.png)
+
+
+# 設定重開後啟動
+
+$ sudo systemctl enable mongod
+
+
+# 安裝指令驅動Mongo sh(也可以不安裝)
+
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/19.png)
+
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/20.png)
+
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/21.png)
+
+$ sudo dpkg -i mongodb-mongosh_2.3.1_amd64.deb
+
+# 進入mongoDB sh的指令
+
+$ mongosh
+
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/22.png)
+
+然後就可以在這邊輸入操作指令了
+
+# 安裝圖示資料庫
+
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/23.png)
+
+$ sudo dpkg -i mongodb-compass_1.44.4_amd64.deb
+
+然後就可以用圖示來看資料庫
+
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/24.png)
+
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/25.png)
+
+---------------------------------------------------------------------------------------------------
 
