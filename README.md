@@ -144,11 +144,18 @@ $ pip install Flask
 $ nano start_script.sh
 
 編寫腳本內容
+-------------
+這邊有個要注意的地方，因為本篇是要透過systemd服務來執行啟動檔，所以要將PATH都打上絕對位置或設定一個工作目錄
+-------------
 
 #!/bin/bash
+
 source myenv/bin/activate  # 替換為你的虛擬環境路徑
+
 cd /path/to/your/project  # 替換為你的專案路徑
+
 python your_script.py  # 替換為要執行的 Python 檔案
+
 
 # 賦予執行權限（Linux）
 
@@ -231,12 +238,16 @@ $ hostname -I
 
 ![image](https://github.com/OliverTsai/memorandum/blob/main/img/12.png)
 
+
 連接成功後就可以把你寫的後端程式等等丟到測試機了
+
 
 ![image](https://github.com/OliverTsai/memorandum/blob/main/img/13.png)
 
+
+
 ---------------------------------------------------------------------------------------------------
 
-#設置資料庫
+# 設置資料庫
 
 
