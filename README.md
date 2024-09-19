@@ -197,10 +197,14 @@ $ sudo nano /etc/vsftpd.conf
 
 # 確保以下行未被註解（前面沒有 #）
 
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/8.png)
+
 listen=YES
 anonymous_enable=NO
 local_enable=YES
 write_enable=YES
+
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/9.png)
 
 # 重啟 vsftpd 服務
 $ sudo systemctl restart vsftpd
@@ -210,19 +214,29 @@ $ sudo systemctl restart vsftpd
 打開 VirtualBox，選擇您的虛擬機，然後點擊「設定」。
 在「網絡」選項卡中，將「附加到」設置為「橋接適配器」。這樣可以讓虛擬機獲得與主機相同的網絡。
 
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/10.png)
+
 # 查找虛擬機的 IP 地址
 
 在 Linux 虛擬機中，使用以下命令查找其 IP 地址，之後將這個IP地址輸入到FileZilla 就可以
 
 $ hostname -I
 
-
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/11.png)
 
 在「主機」欄位中輸入剛才查找到的虛擬機 IP 地址。
 在「用戶名」和「密碼」欄位中輸入您的 Linux 用戶名和密碼。
 默認端口為 21（FTP），如果您有特別設置，可以根據需要修改。
 點擊「快速連接」。
 
-
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/12.png)
 
 連接成功後就可以把你寫的後端程式等等丟到測試機了
+
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/13.png)
+
+---------------------------------------------------------------------------------------------------
+
+#設置資料庫
+
+
