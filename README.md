@@ -143,7 +143,7 @@ $ pip install Flask
 
 $ nano start_script.sh
 
-編寫腳本內容
+# 編寫腳本內容
 -------------
 這邊有個要注意的地方，因為本篇是要透過systemd服務來執行啟動檔，所以要將PATH都打上絕對位置或設定一個工作目錄
 -------------
@@ -207,9 +207,13 @@ $ sudo nano /etc/vsftpd.conf
 ![image](https://github.com/OliverTsai/memorandum/blob/main/img/8.png)
 
 listen=YES
+
 anonymous_enable=NO
+
 local_enable=YES
+
 write_enable=YES
+
 
 ![image](https://github.com/OliverTsai/memorandum/blob/main/img/9.png)
 
