@@ -113,22 +113,22 @@ $ sudo ufw status
 資安正式營運後的設置
 ------------------------------------------------------------
 
-# 更改預設 SSH 連接埠(22=>你喜歡的port)
+更改預設 SSH 連接埠(22=>你喜歡的port)
 
 $ sudo nano /etc/ssh/sshd_config
 
 找到以#Port 22開頭的行，並將其變更為所需的連接埠號碼。(記得把#拿掉)
 port例如22689 22222 33366 12345 隨便你開心的號碼
 
-# 設定防火牆(指定特定ip區段或單一ip可以連入到你設定的port取得ssh連線服務)
+設定防火牆(指定特定ip區段或單一ip可以連入到你設定的port取得ssh連線服務)
 
 $ sudo ufw allow from 192.168.1.0/24 proto tcp to any port 22222
 
-# 檢查一下規則有沒有寫進去
+檢查一下規則有沒有寫進去
 
 $ sudo ufw status (numbered 選項)
 
-# 重新啟動ssh服務
+重新啟動ssh服務
 
 $ sudo systemctl restart ssh
 
