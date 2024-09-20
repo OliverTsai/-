@@ -88,6 +88,55 @@ $ reboot
 
 $ sudo apt update
 
+# 如果要用putty嘗試操作(要自行安裝SSH)
+
+$ sudo apt-get install openssh-server
+
+# 設定ssh不會被防火牆阻擋(不用puyyt會被阻擋)
+
+$ sudo ufw allow OpenSSH
+
+# 允許 NGINX 處理所有流量（包括 HTTP 和 HTTPS）(還沒安裝先看下面)
+
+$ sudo ufw allow 'Nginx Full'
+
+# 啟用防火牆
+
+$ sudo ufw enable
+
+# 檢查防火牆狀態
+
+$ sudo ufw status
+
+
+
+# 資安特別內容
+
+------------------------------------------------------------
+
+# 更改預設 SSH 連接埠(22=>你喜歡的port)
+
+$ sudo nano /etc/ssh/sshd_config
+
+找到以#Port 22開頭的行，並將其變更為所需的連接埠號碼。(記得把#拿掉)
+port例如22689 22222 33366 12345 隨便你開心的號碼
+
+# 設定防火牆(指定特定ip區段或單一ip可以連入到你設定的port取得ssh連線服務)
+
+$ sudo ufw allow from 192.168.1.0/24 proto tcp to any port 22222
+
+# 檢查一下規則有沒有寫進去
+
+$ sudo ufw status (numbered 選項)
+
+# 重新啟動ssh服務
+
+$ sudo systemctl restart ssh
+
+$ sudo systemctl status ssh 
+
+------------------------------------------------------------
+
 # 安裝 Nginx
 
 $ sudo apt install nginx
