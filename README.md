@@ -342,6 +342,22 @@ $ sudo systemctl daemon-reload
 
 最後改成SFTP連線就可以了
 
+
+設定FTTPS
+---------------------------------------------------------------------------------------------------
+
+生成 SSL 憑證(最後加上-nodes就是生成不用密碼的協議)
+
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
+
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/27.png)
+
+依序填入國家公司等等...
+
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/28.png)
+
+就可以在程式中改成fttps連線了
+
 ---------------------------------------------------------------------------------------------------
 
 # 設置資料庫
