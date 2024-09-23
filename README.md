@@ -136,6 +136,20 @@ $ sudo systemctl status ssh 
 
 ------------------------------------------------------------
 
+# 圖形介面可以安裝中文輸入法
+
+安裝
+
+$ sudo apt-get install ibus ibus-chewing
+
+配置
+
+$ im-config
+
+之後重啟即可
+
+------------------------------------------------------------
+
 # 安裝 Nginx
 
 $ sudo apt install nginx
