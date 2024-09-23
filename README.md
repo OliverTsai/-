@@ -314,7 +314,31 @@ $ hostname -I
 
 ![image](https://github.com/OliverTsai/memorandum/blob/main/img/13.png)
 
+# 啟動防火牆後的更新
 
+要先設定防火牆能通過的
+
+對於 FTP，執行以下命令
+
+$ sudo ufw allow 21/tcp
+
+對於 SFTP（如果使用 SSH）
+
+$ sudo ufw allow 22/tcp
+
+允許被動模式的 FTP（可選）： 如果您使用的是被動模式的 FTP，您可能需要允許額外的端口（例如 50000-51000）
+
+$ sudo ufw allow 50000:51000/tcp
+
+使用以下命令檢查防火牆規則是否已正確設置
+
+$ sudo ufw status
+
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/26.png)
+
+重啟服務
+
+$ sudo systemctl daemon-reload
 
 ---------------------------------------------------------------------------------------------------
 
