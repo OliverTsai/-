@@ -358,6 +358,10 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -node
 
 就可以在程式中改成fttps連線了
 
+另外這是看到其他大師分享的專業版
+
+[點我]([https://www.example.com](https://blog.miniasp.com/post/2019/02/25/Creating-Self-signed-Certificate-using-OpenSSL))
+
 ---------------------------------------------------------------------------------------------------
 
 # 設置資料庫
