@@ -98,9 +98,11 @@ $ sudo apt-get install openssh-server
 
 $ sudo ufw allow OpenSSH
 
-# 允許 NGINX 處理所有流量（包括 HTTP 和 HTTPS）(還沒安裝先看下面)
+允許 NGINX 處理所有流量（包括 HTTP 和 HTTPS）(還沒安裝先看下面)
 
 $ sudo ufw allow 'Nginx Full'
+
+允許某個端口(比如27017)
 
 # 啟用防火牆
 
@@ -110,7 +112,7 @@ $ sudo ufw enable
 
 $ sudo ufw status
 
-
+$ sudo ufw allow 27017/tcp
 
 資安正式營運後的設置
 ------------------------------------------------------------
