@@ -90,7 +90,7 @@ $ reboot
 
 $ sudo apt update
 
-# 如果要用putty嘗試操作(要自行安裝SSH)
+# 如果要用putty遠端操作(要自行安裝SSH)
 
 $ sudo apt-get install openssh-server
 
@@ -158,7 +158,74 @@ $ im-config
 
 $ sudo apt install nginx
 
-# 安裝完成後，可以使用以下命令啟動 Nginx
+# 安裝好後需要配置(每一個.com的檔都是一個網站或後端的配置)
+
+$ sudo nano /etc/nginx/sites-available/yourdomain.com
+
+配置靜態網頁
+-----------------------------------------------------------------
+
+server{
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/yourdomain.com/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name yourdomain.com www.yourdomain.com;
+
+        location / {
+                        try_files $uri $uri/ =404;
+        }
+}
+
+這是標準靜態網頁配置，將yourdomain換成購買的網域即可
+
+listen 80; 這行告訴NGINX在IPv4的端口80（HTTP的默認端口）上監聽請求。
+
+listen [::]:80; 這行告訴NGINX在IPv6的端口80上監聽請求。[::] 是IPv6中表示所有地址的符號。
+
+root /var/www/yourdomain.com/html; 這行指定了網站的根目錄，當用戶訪問這個伺服器的時候，NGINX會從這個目錄提供靜態文件。它表示該站點的HTML、CSS、JS等文件存儲位置。
+
+index index.html index.htm index.nginx-debian.html; 這行定義了當用戶訪問網站根目錄（如 http://yourdomain.com/）時，NGINX應該加載的默認首頁文件。index.html 是優先加載的文件，如果找不到，則會嘗試 index.htm 和 index.nginx-debian.html。
+
+server_name yourdomain.com www.yourdomain.com; 這行定義了這個虛擬主機所服務的域名。當用戶訪問 yourdomain.com 或 www.yourdomain.com 時，NGINX將使用這個 server 區塊內的配置來處理請求。
+
+location / { ... } 這行定義了一個 location 區塊，用來匹配請求的路徑。在這裡，/ 代表網站的根路徑（即所有請求）。它定義了當請求匹配這個路徑時如何處理。
+
+try_files $uri $uri/ =404; 這行是處理靜態文件請求的邏輯，當找不到文件時則返回404錯誤
+
+
+配置後端的反向代理
+-----------------------------------------------------------------
+
+server {
+    listen 80;
+    server_name yourdomain.com www.yourdomain.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+這是後端的配置，將yourdomain換成購買的網域即可
+
+proxy_pass http://127.0.0.1:5000; 這行指示NGINX將匹配的請求（轉發）到位於本地的Flask應用程序，即 http://127.0.0.1:5000。
+
+proxy_set_header Host $host; 這行用來設置轉發的HTTP請求頭中的 Host 字段。$host 是NGINX變量，代表原始請求的主機名。
+
+proxy_set_header X-Real-IP $remote_addr; 這行設定 X-Real-IP 請求頭，將原始用戶的IP地址傳遞給後端服務器。$remote_addr 是用戶的真實IP
+
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; 這行設定 X-Forwarded-For 頭，它用來追蹤代理伺服器的請求鏈。
+
+proxy_set_header X-Forwarded-Proto $scheme; 這行設定 X-Forwarded-Proto 頭，將原始請求使用的協議（http 或 https）傳遞給後端。
+
+
+# 安裝佈置完成後，可以使用以下命令啟動 Nginx
 
 $ sudo systemctl start nginx
 
@@ -363,6 +430,25 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -node
 另外這是看到其他大師分享的專業版
 
 [點我](https://blog.miniasp.com/post/2019/02/25/Creating-Self-signed-Certificate-using-OpenSSL)
+
+但用以上設置的自簽憑證會是不安全的連結，會被封鎖，可以使用Let's Encrypt取得免費的SSL證書，Let's Encrypt是免費且自動化的證書頒發機構，且支援Linux的Nginx
+
+首先要安裝Certbot
+
+$ sudo apt update
+$ sudo apt install certbot python3-certbot-nginx
+
+然後配置NGINX(資料在上面)
+
+配置好後使用Certbot自動化申請SSL證書
+
+$ sudo certbot --nginx -d yourdomain.com
+
+會要你輸入聯絡信箱並且同意他們的請求
+
+![image](https://github.com/OliverTsai/memorandum/blob/main/img/29.png)
+
+成功運行你的網頁或後端後，連線設定好的網址就會轉過去
 
 ---------------------------------------------------------------------------------------------------
 
