@@ -225,6 +225,19 @@ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; 這行設定 X-Forw
 proxy_set_header X-Forwarded-Proto $scheme; 這行設定 X-Forwarded-Proto 頭，將原始請求使用的協議（http 或 https）傳遞給後端。
 
 
+配置好後需要啟用站點設定檔
+
+雖然站點設定檔在 /etc/nginx/sites-available/ 中，但要啟用它，你需要在 /etc/nginx/sites-enabled/ 中建立一個符號連結（symlink）
+
+$ sudo ln -s /etc/nginx/sites-available/yourdomain.com /etc/nginx/sites-enabled/
+
+測試配置
+
+每次修改NGINX設定檔後，都應該測試配置是否正確
+
+$ sudo nginx -t
+
+
 # 安裝佈置完成後，可以使用以下命令啟動 Nginx
 
 $ sudo systemctl start nginx
@@ -448,7 +461,30 @@ $ sudo certbot --nginx -d yourdomain.com
 
 ![image](https://github.com/OliverTsai/memorandum/blob/main/img/29.png)
 
-成功運行你的網頁或後端後，連線設定好的網址就會轉過去
+然後會給你證書與私鑰的保存位置，記得到NGINX設定檔裡面添加(範例如下)
+
+server {
+    listen 443 ssl;
+    server_name yourdomain.com www.yourdomain.com;
+	
+    # SSL 證書與私鑰的路徑
+    ssl_certificate /path/to/your/certificate.crt;
+    ssl_certificate_key /path/to/your/private.key;
+	
+    # SSL設定 (可根據需求調整)
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+成功運行你的網頁或後端後，測試NGINX配置並重新啟動NGINX，連線設定好的網址就會轉過去
 
 ---------------------------------------------------------------------------------------------------
 
